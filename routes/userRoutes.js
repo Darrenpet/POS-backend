@@ -4,7 +4,8 @@ const express = require("express");
 const User = require("../models/Users");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { getUser } = require("../middleware/get");
+const { getUser, getProduct } = require("../middleware/get");
+const authenticateToken = require("../middleware/auth");
 
 const app = express.Router();
 
@@ -24,7 +25,7 @@ app.get("/:id", getUser, (req, res, next) => {
 });
 
 // LOGIN user with email + password
-app.patch("/", async (req, res, next) => {
+app.patch("/login", async (req, res, next) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
 
@@ -107,13 +108,59 @@ app.delete("/:id", getUser, async (req, res, next) => {
 });
 
 // GET USER CART
-app.get("/:id/cart", getUser, (req, res, next) => {
-  res.send(res.user);
+app.get("/:id/cart", [authenticateToken, getUser], (req, res, next) => {
+  try {
+    res.json(req.user.cart);
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
 });
 
 // ADD TO USER CART
+app.put(
+  "/:id/cart",
+  [authenticateToken, getProduct],
+  async (req, res, next) => {
+    const user = await User.findById(req.user.id);
+    const inCart = user.cart.some((prod) => prod._id == req.parms.id);
+
+    if (inCart) {
+      const product = user.cart.find((prod) => prod._id == req.params.id);
+      product.qyt += req.body.qty;
+
+      const updateUser = await user.save();
+
+      return res.send(updateUser.cart);
+    } else {
+      user.cart.push({ ...res.product, qty: req.body.qty });
+      const updatedUser = await user.save();
+      return res.send(updatedUser.cart);
+    }
+  }
+);
 
 // UPDATE USER CART
+app.put(
+  "/:id/cart",
+  [authenticateToken, getProduct],
+  async (req, res, next) => {
+    const user = await User.findById(req.user.id);
+    const inCart = user.cart.some((prod) => prod._id == req.parms.id);
+
+    if (inCart) {
+      const product = user.cart.find((prod) => prod._id == req.params.id);
+      product.qyt += req.body.qty;
+
+      const updateUser = await user.save();
+
+      return res.send(updateUser.cart);
+    } else {
+      user.cart.push({ ...res.product, qty: req.body.qty });
+      const updatedUser = await user.save();
+      return res.send(updatedUser.cart);
+    }
+  }
+);
 
 // DELETE USER CART
 

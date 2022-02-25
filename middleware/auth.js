@@ -5,13 +5,13 @@ function authenticateToken(req, res, next) {
   const authHeader = req.headers["authorization"];
 
   const token = authHeader && authHeader.split(" ")[1];
+  if (!token || token == null)
+    return res.status(401).send({ message: "User not logged in" });
 
-  if (!token) res.sendStatus(401);
-
-  jwt.verify(token, process.env.SECRET_KEY, (err, user) => {
-    if (err) res.Status(403).send({ message: err.message });
+  jwt.verify(token, process.env.MONGO_PASS, (err, user) => {
+    if (err) res.status(403).send({ message: err.message });
     req.user = user;
-    next();
+    return next();
   });
 }
 

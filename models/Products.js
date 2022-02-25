@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
 
 const productSchema = new mongoose.Schema({
+  product_id: {
+    type: String,
+  },
   title: {
     type: String,
     required: true,
@@ -12,7 +15,6 @@ const productSchema = new mongoose.Schema({
   description: {
     type: String,
     required: true,
-    default: Date.now,
   },
   img: {
     type: String,
@@ -25,7 +27,6 @@ const productSchema = new mongoose.Schema({
   },
   created_by: {
     type: String,
-    required: true,
   },
 });
 

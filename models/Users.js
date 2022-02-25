@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
+  user_id: {
+    type: String,
+  },
   fullname: {
     type: String,
     required: true,
@@ -20,13 +23,13 @@ const userSchema = new mongoose.Schema({
   },
   join_date: {
     type: Date,
-    required: true,
+    required: false,
     default: Date.now,
   },
   cart: {
     type: Array,
-    required: true,
-    default: null,
+    required: false,
+    default: [],
   },
 });
 

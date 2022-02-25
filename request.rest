@@ -2,7 +2,7 @@ GET http://localhost:4000/users
 
 ###
 
-GET http://localhost:4000/users/
+GET http://localhost:4000/users/62162ad5adefa837b0a82192/
 
 ###
 
@@ -10,27 +10,30 @@ POST http://localhost:4000/users/
 Content-Type: application/json
 
 {
-    "fullname": "Darren Petersen",
-    "email": "darrenpetersen007@gmail.com",
-    "password": "Lifechoices1234",
-    "phone_number": "0787521530"
+    "fullname": "ubaid",
+    "email": "ubaid@gmail.com",
+    "password": "pass",
+    "phone_number": "0213899456"
 }
 
 ###
 
-PATCH http://localhost:4000/users/
+PATCH http://localhost:4000/users/login
 Content-Type: application/json
 
 {
-    "fullname": "Darren Petersen",
-    "email": "darrenpetersen007@gmail.com",
-    "password": "Lifechoices1234",
-    "phone_number": "0787521530"
+    "email": "ubaid@gmail.com",
+    "password": "pass"
 }
 
 ###
 
-PUT http://localhost:4000/users/
+PUT http://localhost:4000/users/62162ad5adefa837b0a82192/
+Content-Type: application/json
+
+{
+    "password": "lifechoices1234"
+}
 
 
 ###
@@ -39,19 +42,19 @@ DELETE http://localhost:4000/users/
 
 ###
 
-GET http://localhost:4000/posts
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJmdWxsbmFtZSI6IkRhcnJlbiBQZXRlcnNlbiIsImVtYWlsIjoiZGFycmVucGV0ZXJzZW4wMDdAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkd2M3dTJEZVlLSXVMV2VURWMubm0xT0JvMk90cVpqV0Fxb3o4U0lPWnkwVC9GVzlpV2cuUWkiLCJwaG9uZV9udW1iZXIiOiIwNzg3NTIxNTMwIiwiY2FydCI6W10sIl9pZCI6IjYyMTYyYWQ1YWRlZmE4MzdiMGE4MjE5MiIsImpvaW5fZGF0ZSI6IjIwMjItMDItMjNUMTI6Mzg6NDUuOTQ4WiIsIl9fdiI6MH0.b8UCiLa3LaI72-lyEbVLuR7r4qxiAbQcWTh-Idob1e4
+GET http://localhost:4000/products
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI2MjE4ZDMwZjY0NjI2N2M4ZTI4ZjkyZjMiLCJmdWxsbmFtZSI6InViYWlkIiwiZW1haWwiOiJ1YmFpZEBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRMMXRHNUh3d2Y0QkovNm14bzA0d21PZDBVZ0RwWWllZTl3WFZxTHVZUTVwdEc3OFJpc2JjQyIsInBob25lX251bWJlciI6IjAyMTM4OTk0NTYiLCJjYXJ0IjpbXSwiam9pbl9kYXRlIjoiMjAyMi0wMi0yNVQxMzowMTowMy40NjRaIiwiX192IjowfQ.-OqTgG5jpH7c6_fWZG0NEDQh1otXnJE6lcDIVsRCyCs
 
 ###
 
-GET http://localhost:4000/posts/
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJmdWxsbmFtZSI6IkRhcnJlbiBQZXRlcnNlbiIsImVtYWlsIjoiZGFycmVucGV0ZXJzZW4wMDdAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkd2M3dTJEZVlLSXVMV2VURWMubm0xT0JvMk90cVpqV0Fxb3o4U0lPWnkwVC9GVzlpV2cuUWkiLCJwaG9uZV9udW1iZXIiOiIwNzg3NTIxNTMwIiwiY2FydCI6W10sIl9pZCI6IjYyMTYyYWQ1YWRlZmE4MzdiMGE4MjE5MiIsImpvaW5fZGF0ZSI6IjIwMjItMDItMjNUMTI6Mzg6NDUuOTQ4WiIsIl9fdiI6MH0.b8UCiLa3LaI72-lyEbVLuR7r4qxiAbQcWTh-Idob1e4
+GET http://localhost:4000/products/
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI2MjE4ZDMwZjY0NjI2N2M4ZTI4ZjkyZjMiLCJmdWxsbmFtZSI6InViYWlkIiwiZW1haWwiOiJ1YmFpZEBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRMMXRHNUh3d2Y0QkovNm14bzA0d21PZDBVZ0RwWWllZTl3WFZxTHVZUTVwdEc3OFJpc2JjQyIsInBob25lX251bWJlciI6IjAyMTM4OTk0NTYiLCJjYXJ0IjpbXSwiam9pbl9kYXRlIjoiMjAyMi0wMi0yNVQxMzowMTowMy40NjRaIiwiX192IjowfQ.-OqTgG5jpH7c6_fWZG0NEDQh1otXnJE6lcDIVsRCyCs
 
 
 ###
 
-POST http://localhost:4000/posts/
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJmdWxsbmFtZSI6IkRhcnJlbiBQZXRlcnNlbiIsImVtYWlsIjoiZGFycmVucGV0ZXJzZW4wMDdAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkd2M3dTJEZVlLSXVMV2VURWMubm0xT0JvMk90cVpqV0Fxb3o4U0lPWnkwVC9GVzlpV2cuUWkiLCJwaG9uZV9udW1iZXIiOiIwNzg3NTIxNTMwIiwiY2FydCI6W10sIl9pZCI6IjYyMTYyYWQ1YWRlZmE4MzdiMGE4MjE5MiIsImpvaW5fZGF0ZSI6IjIwMjItMDItMjNUMTI6Mzg6NDUuOTQ4WiIsIl9fdiI6MH0.b8UCiLa3LaI72-lyEbVLuR7r4qxiAbQcWTh-Idob1e4
+POST http://localhost:4000/products/
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI2MjE4ZDMwZjY0NjI2N2M4ZTI4ZjkyZjMiLCJmdWxsbmFtZSI6InViYWlkIiwiZW1haWwiOiJ1YmFpZEBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRMMXRHNUh3d2Y0QkovNm14bzA0d21PZDBVZ0RwWWllZTl3WFZxTHVZUTVwdEc3OFJpc2JjQyIsInBob25lX251bWJlciI6IjAyMTM4OTk0NTYiLCJjYXJ0IjpbXSwiam9pbl9kYXRlIjoiMjAyMi0wMi0yNVQxMzowMTowMy40NjRaIiwiX192IjowfQ.-OqTgG5jpH7c6_fWZG0NEDQh1otXnJE6lcDIVsRCyCs
 Content-Type: application/json
 
 {
@@ -63,8 +66,8 @@ Content-Type: application/json
 
 ###
 
-PUT http://localhost:4000/posts/
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJmdWxsbmFtZSI6IkRhcnJlbiBQZXRlcnNlbiIsImVtYWlsIjoiZGFycmVucGV0ZXJzZW4wMDdAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkd2M3dTJEZVlLSXVMV2VURWMubm0xT0JvMk90cVpqV0Fxb3o4U0lPWnkwVC9GVzlpV2cuUWkiLCJwaG9uZV9udW1iZXIiOiIwNzg3NTIxNTMwIiwiY2FydCI6W10sIl9pZCI6IjYyMTYyYWQ1YWRlZmE4MzdiMGE4MjE5MiIsImpvaW5fZGF0ZSI6IjIwMjItMDItMjNUMTI6Mzg6NDUuOTQ4WiIsIl9fdiI6MH0.b8UCiLa3LaI72-lyEbVLuR7r4qxiAbQcWTh-Idob1e4
+PUT http://localhost:4000/products/
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI2MjE4ZDMwZjY0NjI2N2M4ZTI4ZjkyZjMiLCJmdWxsbmFtZSI6InViYWlkIiwiZW1haWwiOiJ1YmFpZEBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRMMXRHNUh3d2Y0QkovNm14bzA0d21PZDBVZ0RwWWllZTl3WFZxTHVZUTVwdEc3OFJpc2JjQyIsInBob25lX251bWJlciI6IjAyMTM4OTk0NTYiLCJjYXJ0IjpbXSwiam9pbl9kYXRlIjoiMjAyMi0wMi0yNVQxMzowMTowMy40NjRaIiwiX192IjowfQ.-OqTgG5jpH7c6_fWZG0NEDQh1otXnJE6lcDIVsRCyCs
 Content-Type: application/json
 
 {
@@ -76,8 +79,8 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:4000/posts/
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJmdWxsbmFtZSI6IkRhcnJlbiBQZXRlcnNlbiIsImVtYWlsIjoiZGFycmVucGV0ZXJzZW4wMDdAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkd2M3dTJEZVlLSXVMV2VURWMubm0xT0JvMk90cVpqV0Fxb3o4U0lPWnkwVC9GVzlpV2cuUWkiLCJwaG9uZV9udW1iZXIiOiIwNzg3NTIxNTMwIiwiY2FydCI6W10sIl9pZCI6IjYyMTYyYWQ1YWRlZmE4MzdiMGE4MjE5MiIsImpvaW5fZGF0ZSI6IjIwMjItMDItMjNUMTI6Mzg6NDUuOTQ4WiIsIl9fdiI6MH0.b8UCiLa3LaI72-lyEbVLuR7r4qxiAbQcWTh-Idob1e4
+DELETE http://localhost:4000/products/
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI2MjE4ZDMwZjY0NjI2N2M4ZTI4ZjkyZjMiLCJmdWxsbmFtZSI6InViYWlkIiwiZW1haWwiOiJ1YmFpZEBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRMMXRHNUh3d2Y0QkovNm14bzA0d21PZDBVZ0RwWWllZTl3WFZxTHVZUTVwdEc3OFJpc2JjQyIsInBob25lX251bWJlciI6IjAyMTM4OTk0NTYiLCJjYXJ0IjpbXSwiam9pbl9kYXRlIjoiMjAyMi0wMi0yNVQxMzowMTowMy40NjRaIiwiX192IjowfQ.-OqTgG5jpH7c6_fWZG0NEDQh1otXnJE6lcDIVsRCyCs
 Content-Type: application/json
 
 ###
