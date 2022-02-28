@@ -25,7 +25,7 @@ app.get("/:id", getUser, (req, res, next) => {
 });
 
 // LOGIN user with email + password
-app.patch("/login", async (req, res, next) => {
+app.patch("/", async (req, res, next) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
 
@@ -80,8 +80,9 @@ app.post("/", async (req, res, next) => {
 
 // UPDATE a user
 app.put("/:id", getUser, async (req, res, next) => {
-  const { fullname, phone_number, password } = req.body;
+  const { fullname, email, phone_number, password } = req.body;
   if (fullname) res.user.fullname = fullname;
+  if (email) res.user.email = email;
   if (phone_number) res.user.phone_number = phone_number;
   if (password) {
     const salt = await bcrypt.genSalt();
@@ -116,52 +117,91 @@ app.get("/:id/cart", [authenticateToken, getUser], (req, res, next) => {
   }
 });
 
-// ADD TO USER CART
-app.put(
+// ADD PRODUCT TO USER CART
+app.post(
   "/:id/cart",
   [authenticateToken, getProduct],
   async (req, res, next) => {
-    const user = await User.findById(req.user.id);
-    const inCart = user.cart.some((prod) => prod._id == req.parms.id);
+    const user = await User.findById(req.user._id);
+    console.log(user);
+    let product_id = res.product._id;
+    let title = res.product.title;
+    let category = res.product.category;
+    let description = res.product.description;
+    let img = res.product.img;
+    let price = res.product.price;
+    let qty = req.body.qty;
+    let created_by = req.user._id;
 
-    if (inCart) {
-      const product = user.cart.find((prod) => prod._id == req.params.id);
-      product.qyt += req.body.qty;
+    console.log({
+      product_id,
+      title,
+      category,
+      description,
+      img,
+      created_by,
+      qty,
+      price,
+    });
 
-      const updateUser = await user.save();
-
-      return res.send(updateUser.cart);
-    } else {
-      user.cart.push({ ...res.product, qty: req.body.qty });
+    try {
+      console.log(Array.isArray(req.user.cart));
+      user.cart.push({
+        product_id,
+        title,
+        category,
+        description,
+        price,
+        img,
+        created_by,
+        qty,
+      });
       const updatedUser = await user.save();
-      return res.send(updatedUser.cart);
+      res.status(201).json(updatedUser);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
     }
   }
 );
 
-// UPDATE USER CART
+// UPDATE PRODUCT IN USER CART
 app.put(
   "/:id/cart",
   [authenticateToken, getProduct],
   async (req, res, next) => {
-    const user = await User.findById(req.user.id);
-    const inCart = user.cart.some((prod) => prod._id == req.parms.id);
+    const user = await User.findById(req.user._id);
+    // const {id} = req.params.id;
+
+    const inCart = user.cart.some((prod) => prod.product_id == req.params.id);
+    console.log(inCart);
 
     if (inCart) {
-      const product = user.cart.find((prod) => prod._id == req.params.id);
-      product.qyt += req.body.qty;
-
-      const updateUser = await user.save();
-
-      return res.send(updateUser.cart);
-    } else {
-      user.cart.push({ ...res.product, qty: req.body.qty });
+      const product = user.cart.find(
+        (prod) => prod.product_id == req.params.id
+      );
+      product.qty = req.body.qty;
       const updatedUser = await user.save();
-      return res.send(updatedUser.cart);
+      try {
+        res.status(201).json(updatedUser.cart);
+      } catch (error) {
+        res.status(500).json(console.log(error));
+      }
     }
   }
 );
 
-// DELETE USER CART
+// DELETE PRODUCT IN USER CART'
+app.delete(
+  "/:id/cart",
+  [authenticateToken, getProduct],
+  async (req, res, next) => {
+    try {
+      await res.user.cart.remove();
+      res.json({ message: "Deleted Product" });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  }
+);
 
 module.exports = app;
