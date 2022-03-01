@@ -123,38 +123,26 @@ app.post(
   [authenticateToken, getProduct],
   async (req, res, next) => {
     const user = await User.findById(req.user._id);
-    console.log(user);
+
     let product_id = res.product._id;
     let title = res.product.title;
     let category = res.product.category;
     let description = res.product.description;
     let img = res.product.img;
     let price = res.product.price;
-    let qty = req.body.qty;
+    let quantity = req.body.quantity;
     let created_by = req.user._id;
 
-    console.log({
-      product_id,
-      title,
-      category,
-      description,
-      img,
-      created_by,
-      qty,
-      price,
-    });
-
     try {
-      console.log(Array.isArray(req.user.cart));
       user.cart.push({
         product_id,
         title,
         category,
         description,
-        price,
         img,
+        price,
+        quantity,
         created_by,
-        qty,
       });
       const updatedUser = await user.save();
       res.status(201).json(updatedUser);
@@ -170,18 +158,19 @@ app.put(
   [authenticateToken, getProduct],
   async (req, res, next) => {
     const user = await User.findById(req.user._id);
-    // const {id} = req.params.id;
-
     const inCart = user.cart.some((prod) => prod.product_id == req.params.id);
     console.log(inCart);
 
     if (inCart) {
-      const product = user.cart.find(
-        (prod) => prod.product_id == req.params.id
-      );
-      product.qty = req.body.qty;
-      const updatedUser = await user.save();
       try {
+        const product = user.cart.find(
+          (prod) => prod.product_id == req.params.id
+        );
+        product.quantity = req.body.quantity;
+        user.cart.quantity = product.quantity;
+        user.markModified("cart");
+        const updatedUser = await user.save();
+        console.log(updatedUser);
         res.status(201).json(updatedUser.cart);
       } catch (error) {
         res.status(500).json(console.log(error));
@@ -195,13 +184,16 @@ app.delete(
   "/:id/cart",
   [authenticateToken, getProduct],
   async (req, res, next) => {
-    try {
-      await res.user.cart.remove();
-      res.json({ message: "Deleted Product" });
-    } catch (error) {
-      res.status(500).json({ message: error.message });
-    }
+    res.send(res.user);
+    // try {
+    //   await res.user.cart.remove();
+    //   res.json({ message: "Deleted Product" });
+    // } catch (error) {
+    //   res.status(500).json({ message: error.message });
+    // }
   }
 );
 
 module.exports = app;
+
+// users/621c926ae03bddc0a22b92f7/cart
